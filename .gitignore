@@ -91,3 +91,5 @@ iOSInjectionProject/
 
 #DS_Store file
 *.DS_Store
+#swiftpm
+.swiftpm
