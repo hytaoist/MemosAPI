@@ -33,6 +33,12 @@ public struct MemosSignIn: MemosAPI {
         public let email: String
         public let username: String
         public let password: String
+        
+        public init(email: String, username: String, password: String) {
+            self.email = email
+            self.username = username
+            self.password = password
+        }
     }
 
     public typealias Output = MemosOutput<MemosUser>
@@ -48,6 +54,8 @@ public struct MemosLogout: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .none
     static let path = "/api/auth/signout"
+    
+    public init() {}
 }
 
 public struct MemosMe: MemosAPI {
@@ -57,6 +65,7 @@ public struct MemosMe: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .json
     static let path = "/api/user/me"
+    public init() {}
 }
 
 public struct MemosListMemo: MemosAPI {
@@ -64,6 +73,12 @@ public struct MemosListMemo: MemosAPI {
         public let creatorId: Int?
         public let rowStatus: MemosRowStatus?
         public let visibility: MemosVisibility?
+        
+        public init(creatorId: Int?, rowStatus: MemosRowStatus?, visibility: MemosVisibility?) {
+            self.creatorId = creatorId
+            self.rowStatus = rowStatus
+            self.visibility = visibility
+        }
     }
 
     public typealias Output = MemosOutput<[Memo]>
@@ -77,6 +92,9 @@ public struct MemosListMemo: MemosAPI {
 public struct MemosTag: MemosAPI {
     public struct Input: Encodable {
         public let creatorId: Int?
+        public init(creatorId: Int?) {
+            self.creatorId = creatorId
+        }
     }
 
     public typealias Output = MemosOutput<[String]>
@@ -112,6 +130,9 @@ public struct MemosCreate: MemosAPI {
 public struct MemosOrganizer: MemosAPI {
     public struct Input: Encodable {
         public let pinned: Bool
+        public init(pinned: Bool) {
+            self.pinned = pinned
+        }
     }
 
     public typealias Output = MemosOutput<Memo>
@@ -131,6 +152,15 @@ public struct MemosPatch: MemosAPI {
         public let content: String?
         public let visibility: MemosVisibility?
         public let resourceIdList: [Int]?
+        
+        public init(id: Int, createdTs: Date?, rowStatus: MemosRowStatus?, content: String?, visibility: MemosVisibility?, resourceIdList: [Int]?) {
+            self.id = id
+            self.createdTs = createdTs
+            self.rowStatus = rowStatus
+            self.content = content
+            self.visibility = visibility
+            self.resourceIdList = resourceIdList
+        }
     }
 
     public typealias Output = MemosOutput<Memo>
@@ -150,6 +180,8 @@ public struct MemosDelete: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .json
     static func path(_ memos: Memos, _ params: Int) -> String { "/api/memo/\(params)" }
+    
+    public init() {}
 }
 
 public struct MemosListResource: MemosAPI {
@@ -159,6 +191,8 @@ public struct MemosListResource: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .json
     static let path = "/api/resource"
+    
+    public init() {}
 }
 
 public struct MemosUploadResource: MemosAPI {
@@ -172,6 +206,7 @@ public struct MemosUploadResource: MemosAPI {
         memos.status != nil && memos.status?.profile.version.compare("0.10.2", options: .numeric)
             != .orderedDescending ? "/api/resource/blob" : "/api/resource"
     }
+    public init() {}
 }
 
 public struct MemosDeleteResource: MemosAPI {
@@ -182,6 +217,7 @@ public struct MemosDeleteResource: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .json
     static func path(_ memos: Memos, _ params: Int) -> String { "/api/resource/\(params)" }
+    public init() {}
 }
 
 public struct MemosAuth: MemosAPI {
@@ -189,6 +225,7 @@ public struct MemosAuth: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .none
     static let path = "/auth"
+    public init() {}
 }
 
 public struct MemosStatus: MemosAPI {
@@ -198,11 +235,17 @@ public struct MemosStatus: MemosAPI {
     static let encodeMode: HTTPBodyEncodeMode = .none
     static let decodeMode: HTTPBodyDecodeMode = .json
     static let path = "/api/status"
+    public init() {}
 }
 
 public struct MemosErrorOutput: Decodable {
     public let error: String
     public let message: String
+    
+    public init(error: String, message: String) {
+        self.error = error
+        self.message = message
+    }
 }
 
 extension MemosAPI {

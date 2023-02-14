@@ -33,4 +33,9 @@ public struct DailyUsageStat: Identifiable {
 
         return result
     }
+    
+    public init(date: Date, count: Int) {
+        self.date = date
+        self.count = count
+    }
 }

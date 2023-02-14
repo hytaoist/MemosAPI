@@ -21,10 +21,26 @@ public struct Memo: Decodable, Equatable {
     public let updatedTs: Date
     public let visibility: MemosVisibility
     public let resourceList: [Resource]?
+    
+    public init(id: Int, createdTs: Date, creatorId: Int, content: String, pinned: Bool, rowStatus: MemosRowStatus, updatedTs: Date, visibility: MemosVisibility, resourceList: [Resource]?) {
+        self.id = id
+        self.createdTs = createdTs
+        self.creatorId = creatorId
+        self.content = content
+        self.pinned = pinned
+        self.rowStatus = rowStatus
+        self.updatedTs = updatedTs
+        self.visibility = visibility
+        self.resourceList = resourceList
+    }
 }
 
 public struct Tag: Identifiable, Hashable {
     public let name: String
     
     public var id: String { name }
+    
+    public init(name: String) {
+        self.name = name
+    }
 }

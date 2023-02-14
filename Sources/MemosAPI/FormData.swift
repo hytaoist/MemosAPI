@@ -5,6 +5,13 @@ public struct Multipart: Encodable {
     public let filename: String
     public let contentType: String
     public let data: Data
+    
+    public init(name: String, filename: String, contentType: String, data: Data) {
+        self.name = name
+        self.filename = filename
+        self.contentType = contentType
+        self.data = data
+    }
 }
 
 public func encodeFormData(multiparts: [Multipart], boundary: String) -> Data {
